@@ -34,6 +34,7 @@ common shared
 
   other-modules:
      AssetLoader
+     
 
   default-extensions:
     NoStarIsType

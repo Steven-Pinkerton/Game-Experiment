@@ -14,6 +14,7 @@ data Asset = Asset
   , assetCameras :: [Camera]
   , assetLights :: [Light]
   , assetImages :: [Image]
+  , assetTextures :: [Texture]
   , assetEffects :: [Effect]
   , assetControllers :: [Controller]
   , assetVisualScenes :: [VisualScene]
@@ -34,13 +35,24 @@ data Vertex = Vertex
   , vertexTexCoord :: Vector2
   }
 
+data TextureOrColor
+  = Texture Texture
+  | Color Color
+
 data Material = Material
-  { materialDiffuse :: Color
-  , materialSpecular :: Color
-  -- ... other material properties
+  { materialName :: String
+  , materialDiffuse :: TextureOrColor
+  , materialSpecular :: TextureOrColor
+  , materialAmbient :: TextureOrColor
+  , materialEmissive :: TextureOrColor
+  , materialTransparent :: TextureOrColor
+  , materialOpacity :: Float
+  , materialShininess :: Float
+  , materialReflective :: TextureOrColor
   }
 
-data Animation = Animation
+
+  data Animation = Animation
   { animationName :: String
   , animationKeys :: [AnimationKey]
   }
