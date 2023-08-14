@@ -34,6 +34,8 @@ common shared
 
   other-modules:
      AssetLoader
+     Animations
+     DataTypes
      
 
   default-extensions:
@@ -93,7 +95,6 @@ common shared
     , time
     , with-utf8
     , apecs
-    , OpenGL
     , xml-conduit
     
   hs-source-dirs:     src
