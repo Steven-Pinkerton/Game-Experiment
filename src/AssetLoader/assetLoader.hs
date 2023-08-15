@@ -89,6 +89,7 @@ parseAsset cursor =
     , assetTextures = parseTextures cursor
     , assetEffects = parseEffects cursor
     , assetControllers = parseControllers cursor
+    , assetvisualScenes = parseVisualScenes cursor
     }
 
 main :: IO ()
