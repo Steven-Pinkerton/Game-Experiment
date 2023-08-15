@@ -66,10 +66,6 @@ parseFloatArray c =
       individualValues = splitOn " " values
    in map read individualValues
 
--- Let's add parsing for Camera
-parseCameras :: Cursor -> [Camera]
-parseCameras cursor = cursor $// element "{DAE_NAMESPACE}camera" &| parseCamera
-
 interpolateKeys :: AnimationKey -> AnimationKey -> Float -> Transform
 interpolateKeys key1 key2 t =
   Transform
@@ -79,51 +75,6 @@ interpolateKeys key1 key2 t =
     }
 
 
-parseCamera :: Cursor -> Camera
-parseCamera c =
-  Camera
-    { cameraName = toString $ attribute "name" c
-    , cameraPosition = parseVector3 (c $// element "{DAE_NAMESPACE}position")
-    , cameraTarget = parseVector3 (c $// element "{DAE_NAMESPACE}target")
-    , cameraUpVector = parseVector3 (c $// element "{DAE_NAMESPACE}up_vector")
-    , cameraFov = read $ toString $ head (c $// element "{DAE_NAMESPACE}fov" &/ content)
-    , cameraNearClip = read $ toString $ head (c $// element "{DAE_NAMESPACE}near_clip" &/ content)
-    , cameraFarClip = read $ toString $ head (c $// element "{DAE_NAMESPACE}far_clip" &/ content)
-    }
-
--- And likewise for Light
-parseLights :: Cursor -> [Light]
-parseLights cursor = cursor $// element "{DAE_NAMESPACE}light" &| parseLight
-
-parseLight :: Cursor -> Light
-parseLight c =
-  Light
-    { lightName = toString $ attribute "name" c
-    , lightType = parseLightType c
-    , lightPosition = parseVector3 (c $// element "{DAE_NAMESPACE}position")
-    , lightDirection = parseVector3 (c $// element "{DAE_NAMESPACE}direction")
-    , lightColor = parseColor (c $// element "{DAE_NAMESPACE}color")
-    , lightIntensity = read $ toString $ head (c $// element "{DAE_NAMESPACE}intensity" &/ content)
-    }
-
--- Helper functions to parse Vector3, Color, and LightType
-parseVector3 :: Cursor -> Vector3
-parseVector3 c =
-  let coords = T.splitOn "," $ head (c &/ content)
-   in Vector3 (read $ toString (head coords)) (read $ toString (coords !! 1)) (read $ toString (coords !! 2))
-
-parseColor :: Cursor -> Color
-parseColor c =
-  let rgba = T.splitOn "," $ head (c &/ content)
-   in Color (read $ toString (head rgba)) (read $ toString (rgba !! 1)) (read $ toString (rgba !! 2)) (read $ toString (rgba !! 3))
-
-parseLightType :: Cursor -> LightType
-parseLightType c
-  | typeStr == "point" = PointLight
-  | typeStr == "directional" = DirectionalLight
-  | typeStr == "spot" = SpotLight
-  where
-    typeStr = toString $ head (c $// element "{DAE_NAMESPACE}type" &/ content)
 
 parseAsset :: Cursor -> Asset
 parseAsset cursor =
@@ -134,17 +85,10 @@ parseAsset cursor =
     , assetMaterials = parseMaterials cursor
     , parseVisualScenes = parseVisualScenes cursor
     , assetAnimations = parseAnimations cursor
-    }
-
-
-parseMaterials :: Cursor -> [Material]
-parseMaterials cursor = cursor $// element "{DAE_NAMESPACE}material" &| parseMaterial
-
-parseMaterial :: Cursor -> Material
-parseMaterial c =
-  Material
-    { materialDiffuse = parseColor (c $// element "{DAE_NAMESPACE}diffuse" &/ content)
-    , materialSpecular = parseColor (c $// element "{DAE_NAMESPACE}specular" &/ content)
+    , assetImages = parseImages cursor 
+    , assetTextures = parseTextures cursor
+    , assetEffects = parseEffects cursor
+    , assetControllers = parseControllers cursor
     }
 
 main :: IO ()

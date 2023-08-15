@@ -52,15 +52,24 @@ data Material = Material
   }
 
 
-  data Animation = Animation
+data Animation = Animation
   { animationName :: String
-  , animationKeys :: [AnimationKey]
+  , animationClips :: [AnimationClip]
+  }
+
+data AnimationClip = AnimationClip
+  { clipName :: String
+  , clipKeys :: [AnimationKey]
+  , clipTargets :: [String] -- nodes animated
   }
 
 data AnimationKey = AnimationKey
   { keyTime :: Float
-  , keyMatrix :: Transform
+  , keyTranslation :: Vector3
+  , keyRotation :: Quaternion
+  , keyScale :: Vector3
   }
+
 
 data Transform = Transform
   { transTranslation :: Vector3
@@ -75,23 +84,35 @@ data VertexSkin = VertexSkin
 
 data Camera = Camera
   { cameraName :: String
-  , cameraPosition :: Vector3
-  , cameraTarget :: Vector3 -- Where the camera is looking
-  , cameraUpVector :: Vector3 -- Usually (0, 1, 0) to represent the "up" direction
-  , cameraFov :: Float -- Field of view
-  , cameraNearClip :: Float -- Near clipping plane
-  , cameraFarClip :: Float -- Far clipping plane
-  -- ... other camera properties
+  , cameraNode :: Maybe Node -- scene graph node
+  , cameraProjections :: [Projection] -- multiple projections
+  , cameraLenses :: [CameraLens] -- lens attributes
+  }
+
+data Projection =
+    PerspectiveProjection Float -- fov
+  | OrthographicProjection Float -- ortho size
+
+data CameraLens = CameraLens
+  { lensFov :: Float
+  , lensOffset :: Vector2
   }
 
 data Light = Light
   { lightName :: String
   , lightType :: LightType
-  , lightPosition :: Vector3
-  , lightDirection :: Vector3 -- Relevant for directional and spotlights
-  , lightColor :: Color -- RGB value of the light
-  , lightIntensity :: Float -- Overall strength/magnitude of the light
-  -- ... other light properties like attenuation, spot angle, etc.
+  , lightNode :: Maybe Node
+  , lightColor :: Color
+  , lightIntensity :: Float
+  , lightAttenuation :: Attenuation
+  , lightSpotAngles :: (Float, Float)
+  , lightAreaSize :: (Float, Float)
+  }
+
+data Attenuation = Attenuation
+  { attenConst :: Float
+  , attenLinear :: Float
+  , attenQuad :: Float
   }
 
 data Surface = Surface
@@ -99,7 +120,7 @@ data Surface = Surface
   , surfaceInitFrom :: String
   }
 
-data Sampler = Sampler
+newtype Sampler = Sampler
   { samplerSource :: String
   }
 
@@ -117,6 +138,8 @@ data Texture = Texture
 data Image = Image
   { imageId :: String
   , imagePath :: String
+  , imageDimensions :: (Int, Int)
+  , imageData :: ByteString
   }
 
 data Effect = Effect
@@ -124,19 +147,31 @@ data Effect = Effect
   , effectParams :: [EffectParam]
   }
 
-data EffectParam = EffectParam
-  { paramSid :: String
-  , paramType :: ParamType
-  }
+
 
 data Controller = Controller
   { controllerName :: String
+  , controllerRoot :: Joint
   , controllerJoints :: [Joint]
+  , controllerWeights :: [VertexWeight]
   }
 
 data Joint = Joint
   { jointName :: String
-  , jointBindTransform :: Matrix4x4
+  , jointParent :: Maybe Joint -- Parent joint
+  , jointBindTransform :: Transform
+  , jointInverseBindTransform :: Transform
+  , jointLimits :: JointLimits -- joint rotation limits
+  }
+
+data JointLimits = JointLimits
+  { limitMin :: Vector3 -- min rotation
+  , limitMax :: Vector3 -- max rotation
+  }
+
+data VertexWeight = VertexWeight
+  { weightJointIndex :: Int -- joint affecting vertex
+  , weightInfluence :: Float -- influence amount
   }
 
 data ParamType
@@ -154,7 +189,7 @@ data Node = Node
   , nodeExtras :: [Extra]
   }
 
-data Extra = Extra
+newtype Extra = Extra
   { extraTechnique :: Technique
   }
 

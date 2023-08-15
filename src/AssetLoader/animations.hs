@@ -1,6 +1,5 @@
 module Animations where
 
-
 parseAnimations :: Cursor -> [Animation]
 parseAnimations cursor = cursor $// element "{DAE_NAMESPACE}animation" &| parseAnimation
 
@@ -8,8 +7,17 @@ parseAnimation :: Cursor -> Animation
 parseAnimation c =
   Animation
     { animationName = attribute "name" c
-    , animationKeys = parseAnimationKeys (c $// element "{DAE_NAMESPACE}animation_clip")
+    , animationClips = parseAnimationClips c
     }
+
+parseAnimationClip :: Cursor -> AnimationClip  
+parseAnimationClip c = AnimationClip
+  { clipName = attribute "name" c
+  , clipKeys = parseAnimationKeys c
+  }
+
+parseAnimationClips :: Cursor -> [AnimationClip]
+parseAnimationClips c = c $// element "{DAE_NAMESPACE}animation_clip" &| parseAnimationClip
 
 parseAnimationKeys :: Cursor -> [AnimationKey]
 parseAnimationKeys c = c $// element "{DAE_NAMESPACE}key" &| parseAnimationKey
