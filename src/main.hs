@@ -1,8 +1,15 @@
 module Main where
-import qualified Main.Utf8 as Utf8
 
-main :: IO ()
+
 main = do
-  -- For withUtf8, see https://serokell.io/blog/haskell-with-utf8
-  Utf8.withUtf8 $ do
-    putTextLn "Hello 🌎"
+  doc <- loadDAEFile "sample.dae"
+  let cursor = fromDocument doc
+  asset <- parseAsset cursor
+
+  -- Print number of items loaded
+  print $ length $ assetMeshes asset
+  print $ length $ assetCameras asset
+
+  -- Check some values
+  print $ head $ assetCameras asset
+  print $ animationName $ head $ assetAnimations asset

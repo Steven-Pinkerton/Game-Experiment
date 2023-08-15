@@ -15,38 +15,6 @@ import Text.XML.Cursor
       (&|),
       Cursor )
 
-
-parseVisualScenes :: Cursor -> [VisualScene]
-parseVisualScenes cursor =
-  cursor
-    $// element "{DAE_NAMESPACE}library_visual_scenes"
-    $// element "{DAE_NAMESPACE}visual_scene"
-    &| parseVisualScene
-
-parseVisualScene :: Cursor -> VisualScene
-parseVisualScene c =
-  VisualScene
-    { sceneId = attribute "id" c
-    , sceneName = attribute "name" c
-    , sceneNodes = parseNodes c
-    }
-
-parseNodes :: Cursor -> [Node]
-parseNodes c =
-  c $// element "{DAE_NAMESPACE}node" &| parseNode
-
-parseNode :: Cursor -> Node
-parseNode c =
-  Node
-    { nodeId = attribute "id" c
-    , nodeName = attribute "name" c
-    , nodeSid = attribute "sid" c
-    , nodeType = attribute "type" c
-    , nodeTransform = parseMatrix c
-    , nodeChildren = parseNodes c
-    , nodeExtras = parseExtras c
-    }
-
 -- Parse transform, children nodes, extras etc
 
 parseAssetVisualScenes :: Cursor -> Asset
@@ -81,7 +49,6 @@ parseAsset cursor =
     , assetCameras = parseCameras cursor
     , assetLights = parseLights cursor
     , assetMaterials = parseMaterials cursor
-    , parseVisualScenes = parseVisualScenes cursor
     , assetAnimations = parseAnimations cursor
     , assetImages = parseImages cursor 
     , assetTextures = parseTextures cursor
@@ -89,12 +56,5 @@ parseAsset cursor =
     , assetControllers = parseControllers cursor
     , assetvisualScenes = parseVisualScenes cursor
     }
-
-main :: IO ()
-main = do
-  doc <- loadDAEFile "path_to_your_file.dae"
-  let cursor = fromDocument doc
-  let asset = parseAsset cursor
-  undefined
 
 -- Do something with asset, e.g., print it out, render it, etc.

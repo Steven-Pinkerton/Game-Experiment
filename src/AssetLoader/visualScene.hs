@@ -1,3 +1,5 @@
+module VisualScene where
+
 parseVisualScenes :: Cursor -> [VisualScene]
 parseVisualScenes cursor =
   cursor

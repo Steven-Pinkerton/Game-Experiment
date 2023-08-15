@@ -1,3 +1,5 @@
+module Textures where
+
 parseTextures :: Cursor -> [Texture]
 parseTextures c =
   c

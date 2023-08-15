@@ -36,7 +36,15 @@ common shared
      AssetLoader
      Animations
      DataTypes
-     
+     Lights
+     Datatypes
+     Controller
+     Camaras
+     Effects
+     Images
+     Meshes
+     Textures
+     VisualScene
 
   default-extensions:
     NoStarIsType
