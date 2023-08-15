@@ -1,3 +1,5 @@
+module Images where
+  
 parseImages :: Cursor -> [Image]
 parseImages c =
   c

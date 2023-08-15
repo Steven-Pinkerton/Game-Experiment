@@ -1,3 +1,5 @@
+module Camaras where
+  
 -- Let's add parsing for Camera
 parseCameras :: Cursor -> [Camera]
 parseCameras cursor = cursor $// element "{DAE_NAMESPACE}camera" &| parseCamera

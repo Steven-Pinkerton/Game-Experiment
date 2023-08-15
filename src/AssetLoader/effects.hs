@@ -1,3 +1,5 @@
+module Effects where
+  
 parseEffects :: Cursor -> [Effect]
 parseEffects c =
   c

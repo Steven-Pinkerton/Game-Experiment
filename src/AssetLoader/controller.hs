@@ -1,3 +1,5 @@
+module Controller where
+  
 parseControllers :: Cursor -> [Controller]
 parseControllers c =
   c $// element "controller" &| parseController

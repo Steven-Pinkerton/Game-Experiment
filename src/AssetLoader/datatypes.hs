@@ -147,8 +147,6 @@ data Effect = Effect
   , effectParams :: [EffectParam]
   }
 
-
-
 data Controller = Controller
   { controllerName :: String
   , controllerRoot :: Joint
