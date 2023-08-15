@@ -74,8 +74,6 @@ interpolateKeys key1 key2 t =
     , transScale = // interpolate scale
     }
 
-
-
 parseAsset :: Cursor -> Asset
 parseAsset cursor =
   Asset
