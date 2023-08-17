@@ -39,7 +39,6 @@ common shared
       AssetLoader.Lights
       AssetLoader.Materials
       AssetLoader.Meshes
-      AssetLoader.VisualScene
       AssetLoader.Images
       AssetLoader.Effects
       AssetLoader.Datatypes
