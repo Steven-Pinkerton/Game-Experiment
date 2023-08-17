@@ -33,18 +33,18 @@ common shared
     relude
   
   other-modules:
-      Animations
-      AssetLoader
-      VisualScene
-      Lights
-      Materials
-      Meshes
-      VisualScene
-      Images
-      Effects
-      Datatypes
-      Controller
-      Cameras
+      AssetLoader.Animations
+      AssetLoader.AssetLoader
+      AssetLoader.VisualScene
+      AssetLoader.Lights
+      AssetLoader.Materials
+      AssetLoader.Meshes
+      AssetLoader.VisualScene
+      AssetLoader.Images
+      AssetLoader.Effects
+      AssetLoader.Datatypes
+      AssetLoader.Controller
+      AssetLoader.Cameras
 
   default-extensions:
     NoStarIsType
