@@ -1,5 +1,7 @@
 module AssetLoader.Camaras where
-  
+import Text.XML.Cursor
+import AssetLoader.Datatypes
+
 -- Let's add parsing for Camera
 parseCameras :: Cursor -> [Camera]
 parseCameras cursor = cursor $// element "{DAE_NAMESPACE}camera" &| parseCamera

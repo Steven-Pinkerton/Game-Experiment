@@ -1,5 +1,7 @@
 module AssetLoader.Meshes where
    
+import AssetLoader.Datatypes
+
 parseMeshes :: Cursor -> [Mesh]
 parseMeshes cursor = cursor $// element "{DAE_NAMESPACE}mesh" &| parseMesh
 

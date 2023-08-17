@@ -1,5 +1,8 @@
 module AssetLoader.Controller where
   
+import AssetLoader.Datatypes
+
+
 parseControllers :: Cursor -> [Controller]
 parseControllers c =
   c $// element "controller" &| parseController

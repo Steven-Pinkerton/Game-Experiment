@@ -12,6 +12,7 @@ import Text.XML.Cursor
       (&/),
       (&|),
       Cursor )
+import AssetLoader.Datatypes
 
 -- Parse transform, children nodes, extras etc
 

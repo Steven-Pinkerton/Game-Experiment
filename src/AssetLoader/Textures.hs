@@ -1,5 +1,7 @@
 module AssetLoader.Textures where
 
+import AssetLoader.Datatypes
+
 parseTextures :: Cursor -> [Texture]
 parseTextures c =
   c

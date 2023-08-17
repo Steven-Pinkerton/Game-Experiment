@@ -1,4 +1,6 @@
 module AssetLoader.VisualScene where
+import Text.XML.Cursor
+import AssetLoader.Datatypes
 
 
 

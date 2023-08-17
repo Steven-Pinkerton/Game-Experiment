@@ -1,5 +1,7 @@
 module AssetLoader.Materials where
 
+import AssetLoader.Datatypes
+
 parseMaterials :: Cursor -> [Material]
 parseMaterials cursor = cursor $// element "{DAE_NAMESPACE}material" &| parseMaterial
 

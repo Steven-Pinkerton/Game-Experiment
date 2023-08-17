@@ -1,5 +1,7 @@
 module AssetLoader.Animations where
 
+import AssetLoader.Datatypes
+
 parseAnimations :: Cursor -> [Animation]
 parseAnimations cursor = cursor $// element "{DAE_NAMESPACE}animation" &| parseAnimation
 

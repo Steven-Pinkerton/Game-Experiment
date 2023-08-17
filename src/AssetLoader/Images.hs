@@ -1,4 +1,6 @@
 module AssetLoader.Images where
+
+import AssetLoader.Datatypes
   
 parseImages :: Cursor -> [Image]
 parseImages c =

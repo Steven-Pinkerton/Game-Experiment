@@ -1,4 +1,6 @@
 module AssetLoader.Effects where
+
+import AssetLoader.Datatypes
   
 parseEffects :: Cursor -> [Effect]
 parseEffects c =

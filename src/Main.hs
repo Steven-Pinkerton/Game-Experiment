@@ -7,19 +7,14 @@ import Text.XML.Cursor
 
 -- Our COLLADA parsing modules
 import AssetLoader.AssetLoader
-import AssetLoader.Animation
-import AssetLoader.Camera
-import AssetLoader.Effect
-import AssetLoader.Light
-import AssetLoader.Material
-import AssetLoader.Mesh
+import AssetLoader.Animations
+import AssetLoader.Camaras
+import AssetLoader.Effects
+import AssetLoader.Lights
+import AssetLoader.Materials
+import AssetLoader.Meshes
 import AssetLoader.Textures
 
--- Utilities
-
-import Utils.Color
-import Utils.Matrix
-import Utils.Vector
 
 
 main = do

@@ -1,5 +1,7 @@
 module AssetLoader.Lights where
 
+import AssetLoader.Datatypes
+
 -- And likewise for Light
 parseLights :: Cursor -> [Light]
 parseLights cursor = cursor $// element "{DAE_NAMESPACE}light" &| parseLight

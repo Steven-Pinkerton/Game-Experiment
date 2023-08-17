@@ -43,7 +43,8 @@ common shared
       AssetLoader.Effects
       AssetLoader.Datatypes
       AssetLoader.Controller
-      AssetLoader.Cameras
+      AssetLoader.Camaras
+      AssetLoader.Textures
 
   default-extensions:
     NoStarIsType
