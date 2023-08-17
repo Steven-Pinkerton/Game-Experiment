@@ -1,11 +1,20 @@
 module AssetLoader.Datatypes where
 
+import Numeric.Quaternion (Quaternion)
+
 
 data Vector3 = Vector3 Float Float Float
 data Vector2 = Vector2 Float Float
-data Color = Color Float Float Float Float -- RGBA
 data Matrix4x4 = Matrix4x4 -- Define as you see fit, depending on your math library
 data LightType = PointLight | DirectionalLight | SpotLight
+
+newtype FloatParam = FloatParam Float
+newtype Vector2Param = Vector2Param Vector2
+newtype Vector3Param = Vector3Param Vector3
+newtype Vector4Param = Vector4Param Vector4
+newtype Matrix4x4Param = Matrix4x4Param Matrix4x4
+newtype BoolParam = BoolParam Bool
+newtype IntParam = IntParam Int
 
 data Asset = Asset
   { assetMeshes :: [Mesh]
@@ -128,11 +137,6 @@ data Lambert = Lambert
   { lambertEmission :: Color
   , lambertDiffuse :: Texture
   , lambertIor :: Float
-  }
-
-data Texture = Texture
-  { textureSampler :: String
-  , textureTexcoord :: String
   }
 
 data Image = Image

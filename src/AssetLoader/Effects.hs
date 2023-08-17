@@ -47,14 +47,6 @@ lookupParamType "BOOL" = Just (BoolParam False)
 lookupParamType "INT" = Just (IntParam 0)
 lookupParamType _ = Nothing
 
-newtype FloatParam = FloatParam Float
-newtype Vector2Param = Vector2Param Vector2
-newtype Vector3Param = Vector3Param Vector3
-newtype Vector4Param = Vector4Param Vector4
-newtype Matrix4x4Param = Matrix4x4Param Matrix4x4
-newtype BoolParam = BoolParam Bool
-newtype IntParam = IntParam Int
-
 defaultSurface = Surface "" ""
 defaultSampler = Sampler ""
 defaultLambert = Lambert blackColor noTexture 0
