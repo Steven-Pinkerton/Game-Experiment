@@ -1,4 +1,4 @@
-module AssetLoader.Textures () where
+module AssetLoader.Textures where
 
 parseTextures :: Cursor -> [Texture]
 parseTextures c =

@@ -1,4 +1,4 @@
-module AssetLoader.Cameras () where
+module AssetLoader.Cameras where
   
 -- Let's add parsing for Camera
 parseCameras :: Cursor -> [Camera]

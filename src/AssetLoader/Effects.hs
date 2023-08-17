@@ -1,4 +1,4 @@
-module AssetLoader.Effects () where
+module AssetLoader.Effects where
   
 parseEffects :: Cursor -> [Effect]
 parseEffects c =

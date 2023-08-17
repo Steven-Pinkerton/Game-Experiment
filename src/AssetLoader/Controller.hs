@@ -1,4 +1,4 @@
-module AssetLoader.Controller () where
+module AssetLoader.Controller where
   
 parseControllers :: Cursor -> [Controller]
 parseControllers c =
