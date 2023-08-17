@@ -1,4 +1,4 @@
-module AssetLoader.Images where
+module AssetLoader.Images () where
   
 parseImages :: Cursor -> [Image]
 parseImages c =

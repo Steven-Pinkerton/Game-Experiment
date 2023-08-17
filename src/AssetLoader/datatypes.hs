@@ -1,4 +1,4 @@
-module AssetLoader.Datatypes where
+module AssetLoader.Datatypes () where
 
 
 data Vector3 = Vector3 Float Float Float

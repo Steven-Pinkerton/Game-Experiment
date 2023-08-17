@@ -1,4 +1,4 @@
-module AssetLoader.AssetLoader where
+module AssetLoader.AssetLoader () where
 
 
 import Data.Text qualified as T

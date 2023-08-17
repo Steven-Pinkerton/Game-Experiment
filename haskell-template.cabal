@@ -31,6 +31,20 @@ common shared
     base hiding (Prelude),
     relude (Relude as Prelude, Relude.Container.One),
     relude
+  
+  other-modules:
+      Animations
+      AssetLoader
+      VisualScene
+      Lights
+      Materials
+      Meshes
+      VisualScene
+      Images
+      Effects
+      Datatypes
+      Controller
+      Cameras
 
   default-extensions:
     NoStarIsType
@@ -72,7 +86,8 @@ common shared
     TypeFamilies
     TypeOperators
     ViewPatterns
-    ForeignFunctionInterface
+    TemplateHaskell
+
 
   build-depends:
     , aeson
