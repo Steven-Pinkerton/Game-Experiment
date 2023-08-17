@@ -1,4 +1,4 @@
-module Meshes where
+module AssetLoader.Meshes where
    
 parseMeshes :: Cursor -> [Mesh]
 parseMeshes cursor = cursor $// element "{DAE_NAMESPACE}mesh" &| parseMesh

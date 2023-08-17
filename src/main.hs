@@ -2,14 +2,16 @@ module Main where
 
 
 main = do
-  doc <- loadDAEFile "sample.dae"
-  let cursor = fromDocument doc
-  asset <- parseAsset cursor
+  -- Load asset
+  asset <- loadAndParseDAE "sample.dae"
 
-  -- Print number of items loaded
-  print $ length $ assetMeshes asset
-  print $ length $ assetCameras asset
+  -- Print effects
+  putStrLn "Effects:"
+  forM_ (assetEffects asset) $ \effect -> do
+    putStrLn $ "Effect: " ++ effectId effect
 
-  -- Check some values
-  print $ head $ assetCameras asset
-  print $ animationName $ head $ assetAnimations asset
+    forM_ (effectParams effect) $ \param -> do
+      putStrLn $ "  Param: " ++ paramSid param
+      print $ paramType param
+
+    putStrLn ""

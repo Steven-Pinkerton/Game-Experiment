@@ -1,4 +1,4 @@
-module VisualScene where
+module AssetLoader.VisualScene where
 
 parseVisualScenes :: Cursor -> [VisualScene]
 parseVisualScenes cursor =

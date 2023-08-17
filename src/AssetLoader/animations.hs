@@ -1,4 +1,4 @@
-module Animations where
+module AssetLoader.Animations where
 
 parseAnimations :: Cursor -> [Animation]
 parseAnimations cursor = cursor $// element "{DAE_NAMESPACE}animation" &| parseAnimation

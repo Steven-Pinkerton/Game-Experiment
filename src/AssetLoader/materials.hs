@@ -1,4 +1,4 @@
-module Materials where
+module AssetLoader.Materials where
 
 parseMaterials :: Cursor -> [Material]
 parseMaterials cursor = cursor $// element "{DAE_NAMESPACE}material" &| parseMaterial

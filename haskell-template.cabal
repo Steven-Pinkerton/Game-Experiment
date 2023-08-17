@@ -32,20 +32,6 @@ common shared
     relude (Relude as Prelude, Relude.Container.One),
     relude
 
-  other-modules:
-     AssetLoader
-     Animations
-     DataTypes
-     Lights
-     Datatypes
-     Controller
-     Camaras
-     Effects
-     Images
-     Meshes
-     Textures
-     VisualScene
-
   default-extensions:
     NoStarIsType
     BangPatterns

@@ -1,4 +1,4 @@
-module Lights where
+module AssetLoader.Lights where
 
 -- And likewise for Light
 parseLights :: Cursor -> [Light]
