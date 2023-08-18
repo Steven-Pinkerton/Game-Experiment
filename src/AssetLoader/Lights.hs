@@ -1,6 +1,19 @@
 module AssetLoader.Lights where
 
 import AssetLoader.Datatypes
+    ( VisualScene(sceneNodes),
+      Node,
+      Attenuation(..),
+      Light(..),
+      LightType(..),
+      Vector3(..),
+      Color(..) )
+import Text.XML.Cursor
+    ( attribute, content, element, ($//), (&/), (&|), Cursor )
+import qualified Data.Text as T
+import Data.List ( head, (!!) )
+import AssetLoader.Materials ( extractField )
+import Text.Read (read)
 
 -- And likewise for Light
 parseLights :: Cursor -> [Light]
@@ -22,13 +35,13 @@ parseLight c =
 -- Helper functions to parse Vector3, Color, and LightType
 parseVector3 :: Cursor -> Vector3
 parseVector3 c =
-  let coords = T.splitOn "," $ head (c &/ content)
-   in Vector3 (read $ toString (head coords)) (read $ toString (coords !! 1)) (read $ toString (coords !! 2))
+  let coords = T.splitOn "," $ Data.List.head (c &/ content)
+   in Vector3 (read $ toString (Data.List.head coords)) (read $ toString (coords !! 1)) (read $ toString (coords !! 2))
 
 parseColor :: Cursor -> Color
 parseColor c =
-  let rgba = T.splitOn "," $ head (c &/ content)
-   in Color (read $ toString (head rgba)) (read $ toString (rgba !! 1)) (read $ toString (rgba !! 2)) (read $ toString (rgba !! 3))
+  let rgba = T.splitOn "," $ Data.List.head (c &/ content)
+   in Color (read $ toString (Data.List.head rgba)) (read $ toString (rgba !! 1)) (read $ toString (rgba !! 2)) (read $ toString (rgba !! 3))
 
 parseLightType :: Cursor -> LightType
 parseLightType c
@@ -36,7 +49,7 @@ parseLightType c
   | typeStr == "directional" = DirectionalLight
   | typeStr == "spot" = SpotLight
   where
-    typeStr = toString $ head (c $// element "{DAE_NAMESPACE}type" &/ content)
+    typeStr = toString $ Data.List.head (c $// element "{DAE_NAMESPACE}type" &/ content)
 
 parseAttenuation :: Cursor -> Attenuation
 parseAttenuation c =

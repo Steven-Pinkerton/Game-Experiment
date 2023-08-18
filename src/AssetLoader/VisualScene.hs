@@ -1,6 +1,6 @@
 module AssetLoader.VisualScene where
-import Text.XML.Cursor
-import AssetLoader.Datatypes
+import Text.XML.Cursor ( attribute, element, ($//), (&|), Cursor )
+import AssetLoader.Datatypes ( VisualScene(..), Node(..) )
 
 
 

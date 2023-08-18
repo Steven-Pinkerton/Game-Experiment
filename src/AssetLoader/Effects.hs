@@ -1,6 +1,20 @@
 module AssetLoader.Effects where
 
 import AssetLoader.Datatypes
+    ( ParamType(..),
+      Effect(..),
+      Lambert(Lambert),
+      Sampler(Sampler),
+      Surface(Surface),
+      IntParam(IntParam),
+      BoolParam(BoolParam),
+      Matrix4x4Param(Matrix4x4Param),
+      Vector4Param(Vector4Param),
+      Vector3Param(Vector3Param),
+      Vector2Param(Vector2Param),
+      FloatParam(FloatParam),
+      EffectParam(..) )
+import Text.XML.Cursor ( attribute, element, ($//), (&|), Cursor )
   
 parseEffects :: Cursor -> [Effect]
 parseEffects c =

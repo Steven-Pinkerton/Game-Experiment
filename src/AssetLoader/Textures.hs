@@ -1,6 +1,7 @@
 module AssetLoader.Textures where
 
-import AssetLoader.Datatypes
+import AssetLoader.Datatypes ( Texture(..) )
+import Text.XML.Cursor ( attribute, element, ($//), (&|), Cursor )
 
 parseTextures :: Cursor -> [Texture]
 parseTextures c =

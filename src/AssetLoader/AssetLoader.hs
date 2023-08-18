@@ -36,9 +36,9 @@ parseFloatArray c =
 interpolateKeys :: AnimationKey -> AnimationKey -> Float -> Transform
 interpolateKeys key1 key2 t =
   Transform
-    { transTranslation = // interpolate translation
-    , transRotation = // interpolate rotation
-    , transScale = // interpolate scale
+    { transTranslation = (// interpolate translation)
+    , transRotation = (// interpolate rotation)
+    , transScale = (// interpolate scale)
     }
 
 parseAsset :: Cursor -> Asset
@@ -53,7 +53,7 @@ parseAsset cursor =
     , assetTextures = parseTextures cursor
     , assetEffects = parseEffects cursor
     , assetControllers = parseControllers cursor
-    , assetvisualScenes = parseVisualScenes cursor
+    , assetVisualScenes = parseVisualScenes cursor
     }
 
 -- Do something with asset, e.g., print it out, render it, etc.

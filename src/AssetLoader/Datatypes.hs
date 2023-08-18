@@ -1,12 +1,13 @@
 module AssetLoader.Datatypes where
 
-import Numeric.Quaternion (Quaternion)
-
+import Numeric.Quaternion (QDouble)
 
 data Vector3 = Vector3 Float Float Float
 data Vector2 = Vector2 Float Float
+data Vector4 = Vector4 Float Float Float Float
 data Matrix4x4 = Matrix4x4 -- Define as you see fit, depending on your math library
 data LightType = PointLight | DirectionalLight | SpotLight
+data Color = Color Float Float Float Float
 
 newtype FloatParam = FloatParam Float
 newtype Vector2Param = Vector2Param Vector2
@@ -45,11 +46,16 @@ data Vertex = Vertex
   }
 
 data TextureOrColor
-  = Texture Texture
-  | Color Color
+  = TextureValue Texture
+  | ColorValue Color
+
+data Texture = Texture
+  { textureSampler :: Text
+  , textureTexcoord :: Text
+  }
 
 data Material = Material
-  { materialName :: String
+  { materialName :: Text
   , materialDiffuse :: TextureOrColor
   , materialSpecular :: TextureOrColor
   , materialAmbient :: TextureOrColor
@@ -62,27 +68,27 @@ data Material = Material
 
 
 data Animation = Animation
-  { animationName :: String
+  { animationName :: Text
   , animationClips :: [AnimationClip]
   }
 
 data AnimationClip = AnimationClip
-  { clipName :: String
+  { clipName :: Text
   , clipKeys :: [AnimationKey]
-  , clipTargets :: [String] -- nodes animated
+  , clipTargets :: [Text] -- nodes animated
   }
 
 data AnimationKey = AnimationKey
   { keyTime :: Float
   , keyTranslation :: Vector3
-  , keyRotation :: Quaternion
+  , keyRotation :: QDouble
   , keyScale :: Vector3
   }
 
 
 data Transform = Transform
   { transTranslation :: Vector3
-  , transRotation :: Quaternion
+  , transRotation :: QDouble
   , transScale :: Vector3
   }
 
@@ -92,7 +98,7 @@ data VertexSkin = VertexSkin
   }
 
 data Camera = Camera
-  { cameraName :: String
+  { cameraName :: Text
   , cameraNode :: Maybe Node -- scene graph node
   , cameraProjections :: [Projection] -- multiple projections
   , cameraLenses :: [CameraLens] -- lens attributes
@@ -108,7 +114,7 @@ data CameraLens = CameraLens
   }
 
 data Light = Light
-  { lightName :: String
+  { lightName :: Text
   , lightType :: LightType
   , lightNode :: Maybe Node
   , lightColor :: Color
@@ -125,12 +131,12 @@ data Attenuation = Attenuation
   }
 
 data Surface = Surface
-  { surfaceType :: String
-  , surfaceInitFrom :: String
+  { surfaceType :: Text
+  , surfaceInitFrom :: Text
   }
 
 newtype Sampler = Sampler
-  { samplerSource :: String
+  { samplerSource :: Text
   }
 
 data Lambert = Lambert
@@ -140,26 +146,31 @@ data Lambert = Lambert
   }
 
 data Image = Image
-  { imageId :: String
-  , imagePath :: String
+  { imageId :: Text
+  , imagePath :: Text
   , imageDimensions :: (Int, Int)
   , imageData :: ByteString
   }
 
 data Effect = Effect
-  { effectId :: String
+  { effectId :: Text
   , effectParams :: [EffectParam]
   }
 
+data EffectParam = EffectParam
+  { paramSid :: Text
+  , paramType :: ParamType
+  }
+
 data Controller = Controller
-  { controllerName :: String
+  { controllerName :: Text
   , controllerRoot :: Joint
   , controllerJoints :: [Joint]
   , controllerWeights :: [VertexWeight]
   }
 
 data Joint = Joint
-  { jointName :: String
+  { jointName :: Text
   , jointParent :: Maybe Joint -- Parent joint
   , jointBindTransform :: Transform
   , jointInverseBindTransform :: Transform
@@ -182,10 +193,10 @@ data ParamType
   | LambertParam Lambert
 
 data Node = Node
-  { nodeId :: String
-  , nodeName :: String
-  , nodeSid :: String
-  , nodeType :: String
+  { nodeId :: Text
+  , nodeName :: Text
+  , nodeSid :: Text
+  , nodeType :: Text
   , nodeTransform :: Matrix4x4
   , nodeChildren :: [Node]
   , nodeExtras :: [Extra]
@@ -196,18 +207,18 @@ newtype Extra = Extra
   }
 
 data Technique = Technique
-  { techniqueProfile :: String
+  { techniqueProfile :: Text
   , techniqueProperties :: [Property]
   }
 
 data Property = Property
-  { propSid :: String
-  , propType :: String
-  , propValue :: String
+  { propSid :: Text
+  , propType :: Text
+  , propValue :: Text
   }
 
 data VisualScene = VisualScene
-  { sceneId :: String
-  , sceneName :: String
+  { sceneId :: Text
+  , sceneName :: Text
   , sceneNodes :: [Node]
   }

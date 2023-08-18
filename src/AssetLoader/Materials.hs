@@ -1,6 +1,11 @@
 module AssetLoader.Materials where
 
 import AssetLoader.Datatypes
+    ( Material(..), TextureOrColor, Texture(Texture), Color(Color) )
+import Text.XML.Cursor
+    ( attribute, content, element, ($//), (&/), (&|), Cursor )
+import Data.Maybe ( fromJust )
+import AssetLoader.Textures ( parseTexture )
 
 parseMaterials :: Cursor -> [Material]
 parseMaterials cursor = cursor $// element "{DAE_NAMESPACE}material" &| parseMaterial
@@ -23,9 +28,7 @@ parseColorOrTexture :: String -> Cursor -> TextureOrColor
 parseColorOrTexture name c =
   let color = c $// element name &| parseColor
       texture = c $// element (name ++ "-map") &| parseTexture
-   in if isJust color
-        then Color $ fromJust color
-        else Texture $ fromJust texture
+   in maybe (Texture $ fromJust texture) Color color
 
 extractField :: String -> Cursor -> Maybe String
 extractField name c =

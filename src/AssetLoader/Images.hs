@@ -1,6 +1,7 @@
 module AssetLoader.Images where
 
-import AssetLoader.Datatypes
+import AssetLoader.Datatypes ( Image(..) )
+import Text.XML.Cursor ( attribute, element, ($//), (&|), Cursor )
   
 parseImages :: Cursor -> [Image]
 parseImages c =
