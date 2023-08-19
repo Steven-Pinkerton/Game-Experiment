@@ -5,7 +5,24 @@ import Numeric.Quaternion (QDouble)
 data Vector3 = Vector3 Float Float Float
 data Vector2 = Vector2 Float Float
 data Vector4 = Vector4 Float Float Float Float
-data Matrix4x4 = Matrix4x4 -- Define as you see fit, depending on your math library
+data Matrix4x4 = Matrix4x4
+  { m11 :: Float
+  , m12 :: Float
+  , m13 :: Float
+  , m14 :: Float
+  , m21 :: Float
+  , m22 :: Float
+  , m23 :: Float
+  , m24 :: Float
+  , m31 :: Float
+  , m32 :: Float
+  , m33 :: Float
+  , m34 :: Float
+  , m41 :: Float
+  , m42 :: Float
+  , m43 :: Float
+  , m44 :: Float
+  }
 data LightType = PointLight | DirectionalLight | SpotLight
 data Color = Color Float Float Float Float
 
